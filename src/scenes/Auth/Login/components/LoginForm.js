@@ -1,69 +1,51 @@
-import React, { Component } from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { authenticateUser } from '../../../../actions/authActions';
+import useSubmitForm from '../../../components/useSubmitForm';
 
-class LoginForm extends Component {
-  constructor(props) {
-    super(props);
+function LoginForm(props) {
+  // const [inputs, setInputs] = useState({});
 
-    this.state = {
-      username: '',
-      password: '',
-    };
+  // const sendData = () => {
+  //   const { authUser } = props;
+  //   authUser(inputs);
+  // };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleSubmit(e) {
-    e.preventDefault();
-    this.sendData();
-  }
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   sendData();
+  // };
 
 
-  sendData() {
-    const { username, password } = this.state;
-    const { authUser } = this.props;
+  // const handleChange = (e) => {
+  //   e.persist();
+  //   setInputs((data) => ({ ...data, [e.target.id]: e.target.value }));
+  // };
+  const { handleChange, handleSubmit } = useSubmitForm();
+  const { authUser } = props;
 
-    const formData = {
-      username,
-      password
-    };
-    authUser(formData);
-  }
-
-  handleChange(e) {
-    this.setState({ [e.target.id]: e.target.value });
-  }
-
-  render() {
-    const { username, password } = this.state;
-
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <label htmlFor="username">
-          Username: 
-          <input 
-            value={username} 
-            id="username" 
-            type="text"
-            onChange={this.handleChange}
-          />
-        </label>
-        <label htmlFor="password">
-          Password:
-          <input 
-            value={password} 
-            id="password" 
-            type="password"
-            onChange={this.handleChange}
-          />
-        </label>
-        <input type="submit" />
-      </form>
-    );
-  }
+  return (
+    <form onSubmit={(e) => handleSubmit(e, authUser)}>
+      <label htmlFor="username">
+        Username: 
+        <input 
+          id="username" 
+          type="text"
+          onChange={handleChange}
+        />
+      </label>
+      <label htmlFor="password">
+        Password:
+        <input 
+          id="password" 
+          type="password"
+          onChange={handleChange}
+        />
+      </label>
+      <input type="submit" />
+    </form>
+  );
 }
 
 LoginForm.propTypes = {
