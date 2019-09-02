@@ -2,7 +2,7 @@ import {
  LOGIN, 
  SET_BEARER_TOKEN, 
  VERIFY_USER_TOKEN_FROM_LOCAL_STORAGE, 
- SET_AUTH_STATUS 
+ SET_AUTH_STATUS,
 } from './types';
 import apiAction from './apiAction';
 
@@ -25,12 +25,10 @@ function clearLocalStorage() {
 }
 
 function saveUserInLocalStorage(data) {
-  console.log('Saving to local storage ...', data);
   localStorage.setItem('user', JSON.stringify(data));
 }
 
 function setBearerToken(data) {
-  console.log('setBearerToken =>', data);
   saveUserInLocalStorage(data);
   return {
     type: SET_BEARER_TOKEN,
@@ -38,8 +36,15 @@ function setBearerToken(data) {
   };
 }
 
+export function logOutUser() {
+  localStorage.clear();
+  return {
+    type: SET_AUTH_STATUS,
+    payload: false,
+  };
+}
+
 export function authenticateUser(data) {
-  console.log('authenticateUser =>', data);
   return apiAction({
     url: 'http://localhost:1200/authenticate',
     method: 'POST',
