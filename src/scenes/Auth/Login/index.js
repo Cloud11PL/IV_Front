@@ -1,48 +1,31 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import propTypes from 'prop-types';
 
 import NavBar from '../../components/NavBar';
 import LoginForm from './components/LoginForm';
+import useLoggedInStatus from '../../components/useLoggedInStatus';
 
-class Login extends Component {
-  componentDidUpdate() {
-    const { loggedIn, history } = this.props;
-    if (loggedIn) {
-      console.log('Login about to push to dashboard');
-      history.push('/dashboard');
+function Login(props) {
+  const loginStatus = useLoggedInStatus();
+  useEffect(() => {
+    if (loginStatus) {
+      props.history.push('/dashboard');
     }
-  }
-
-
-  render() {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [loginStatus]);
     return (
       <div>
         <NavBar />
         <LoginForm />
       </div>
     );
-  }
 }
 
 Login.propTypes = {
-  loggedIn: propTypes.bool,
   history: propTypes.shape({
     push: propTypes.func.isRequired
   }).isRequired,
 };
 
-Login.defaultProps = {
-  loggedIn: false,
-};
-
-
-const mapStateToProps = (state) => ({
-  loggedIn: state.auth.isLoggedIn
-});
-
-
-export default withRouter(connect(
-  mapStateToProps, null
-)(Login));
+export default withRouter(Login);
