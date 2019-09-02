@@ -6,6 +6,7 @@ export const SET_BEARER_TOKEN = 'SET_BEARER_TOKEN';
 export const VERIFY_USER_TOKEN_FROM_LOCAL_STORAGE = 'VERIFY_USER_TOKEN_FROM_LOCAL_STORAGE';
 export const SET_AUTH_STATUS = 'SET_AUTH_STATUS';
 
+export const LOG_OUT = 'LOG_OUT';
 // Bezpośrednio do axiosa
 export const API = 'API';
 export const API_START = 'API_START';
