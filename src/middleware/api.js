@@ -38,11 +38,9 @@ const apiMiddleware = ({ dispatch }) => (next) => (action) => {
       [dataOrParams]: data
     })
     .then(({ data }) => {
-      console.log(data);
       dispatch(onSuccess(data));
     })
     .catch((error) => {
-      console.log(error);
       // dispatch(apiError(error));
       if (error.response && error.response.status === 401) {
         dispatch(onFailure(error));
