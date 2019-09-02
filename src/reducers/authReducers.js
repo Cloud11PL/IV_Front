@@ -11,7 +11,7 @@ import {
   console.log('action type => ', action.type);
   switch (action.type) {
     case SET_BEARER_TOKEN:
-      console.log(action.payload);
+      console.log('SET_BEARER_TOKEN', action.payload);
       return { 
         isLoggedIn: true,
         token: action.payload.token,
@@ -23,8 +23,7 @@ import {
         }
       };
     case SET_AUTH_STATUS:
-      console.log('AUTH_USER ...');
-      console.log(action.payload);
+      console.log('AUTH_USER ...', action.payload);
       return {
         isLoggedIn: action.payload,
       };
