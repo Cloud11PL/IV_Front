@@ -7,6 +7,10 @@ export const VERIFY_USER_TOKEN_FROM_LOCAL_STORAGE = 'VERIFY_USER_TOKEN_FROM_LOCA
 export const SET_AUTH_STATUS = 'SET_AUTH_STATUS';
 
 export const LOG_OUT = 'LOG_OUT';
+export const SET_DEVICES = 'SET_DEVICES';
+export const FETCH_DEVICES = 'FETCH_DEVICES';
+export const FETCH_DEVICE_SERIES = 'FETCH_DEVICE_SERIES';
+export const SET_DEVICE_SERIES = 'SET_DEVICE_SERIES';
 // Bezpośrednio do axiosa
 export const API = 'API';
 export const API_START = 'API_START';

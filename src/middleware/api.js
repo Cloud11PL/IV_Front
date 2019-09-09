@@ -6,7 +6,7 @@ const apiMiddleware = ({ dispatch }) => (next) => (action) => {
   next(action);
 
   console.log('apiMiddleware');
-
+  
   if (action.type !== API) return;
 
   const {
@@ -37,6 +37,7 @@ const apiMiddleware = ({ dispatch }) => (next) => (action) => {
       headers,
       [dataOrParams]: data
     })
+    // eslint-disable-next-line no-shadow
     .then(({ data }) => {
       dispatch(onSuccess(data));
     })
