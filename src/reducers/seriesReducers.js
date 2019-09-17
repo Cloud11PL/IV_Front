@@ -2,12 +2,16 @@ import {
   SET_DEVICE_SERIES
  } from '../actions/types';
  
- function seriesReducers(state = [], action) {
+ function seriesReducers(state = {}, action) {
   console.log('action type => ', action.type);
   switch (action.type) {
     case SET_DEVICE_SERIES: 
-      console.log('SET_DEVICE_SERIES', action.payload);
-      return action.payload;
+      return { 
+        ...state, 
+        [action.payload[0].Device_Id]: {
+          ...action.payload
+        }
+      };
     default:
       return state;
   }
