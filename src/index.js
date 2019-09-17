@@ -11,6 +11,7 @@ import PrivateRoute from './helpers/PrivateRoute';
 import Home from './scenes/Home/Home';
 import Login from './scenes/Auth/Login';
 import Dashboard from './scenes/Dashboard';
+import SeriesPage from './scenes/Dashboard/SeriesPage';
 
 import LogOut from './scenes/Auth/Login/components/LogOut';
 
@@ -28,6 +29,7 @@ ReactDOM.render(
         <Route exact path="/login" component={Login} />
         <PrivateRoute path="/dashboard" component={Dashboard} />
         <PrivateRoute path="/logout" component={LogOut} />
+        <PrivateRoute path="/series/:device/:id" component={SeriesPage} />
       </Switch>
     </Router>
   </Provider>,
