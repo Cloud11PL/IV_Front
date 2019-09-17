@@ -16,13 +16,16 @@ import {
     payload: data,
   };
 }
-export function fetchSeriesForDevice(data) {
+export function fetchSeriesForDevice(deviceId) {
+  console.log('DEVICE ID =>', deviceId);
   const token = getAccessToken();
   return apiAction({
     url: 'http://localhost:1200/deviceSeries',
     method: 'GET',
-    token,
-    data,
+    data: {
+      deviceId,
+    },
+    accessToken: token,
     onSuccess: setDeviceSeries,
     onFailure: () => console.log('Cannot get devices'),
     label: FETCH_DEVICE_SERIES
