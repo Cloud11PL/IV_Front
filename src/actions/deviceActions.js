@@ -1,5 +1,5 @@
 import {
- FETCH_DEVICES, SET_DEVICES, FETCH_DEVICE_SERIES, SET_DEVICE_SERIES 
+ FETCH_DEVICES, SET_DEVICES
 } from './types';
 import apiAction from './apiAction';
 import store from '../store';
