@@ -1,4 +1,3 @@
-// import * as axios from 'axios';
 import axios from 'axios';
 
 const defaultOptions = {
@@ -7,8 +6,6 @@ const defaultOptions = {
     'Content-Type': 'application/json',
   },
 };
-
-// axios.defaults.baseURL = process.env.REACT_APP_BASE_URL || '';
 
 const instance = axios.create(defaultOptions);
 
@@ -29,15 +26,3 @@ instance.interceptors.request.use(
 );
 
 export default instance;
-
-/*
-  axios.defaults.baseURL = process.env.REACT_APP_BASE_URL || '';
-  axios.defaults.headers.common['Content-Type'] = 'application/json';
-  axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
-*/
-
-// export default axios.create({
-//   baseURL: process.env.REACT_APP_BASE_URL || '',
-//   responseType: 'application/json',
-
-// });
