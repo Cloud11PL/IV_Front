@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Chart from 'react-apexcharts';
 import propTypes from 'prop-types';
 import API from '../../../_config/axios';
@@ -7,6 +8,8 @@ import chartOptions from './chartOptions';
 
 import NavBar from '../../components/NavBar';
 import Modal from '../../components/Modal';
+
+import { updateSingleSeries } from '../../../actions/seriesActions';
 
 function SeriesPage({ match, location }) {
   const [seriesForChart, setSeriesForChart] = useState([]);
@@ -22,9 +25,12 @@ function SeriesPage({ match, location }) {
     setShowModal(!showModal);
   }
 
+  const dispatch = useDispatch();
+
   function handleSubmit(e) {
     e.preventDefault();
     handleClick();
+    dispatch(updateSingleSeries(seriesDetails));
     console.log(seriesDetails);
   }
 
@@ -63,15 +69,16 @@ function SeriesPage({ match, location }) {
   return (
     <div>
       <NavBar />
+      <div className="scene-container">
       We are now looking at a nice page for a device:
-      <br />
-      <h1>
-        {`Device name: ${match.params.device}`}
-      </h1>
-      <h1> 
-        {`Series ID: ${match.params.id}`}
-      </h1>
-      {seriesDetails 
+        <br />
+        <h1>
+          {`Device name: ${match.params.device}`}
+        </h1>
+        <h1> 
+          {`Series ID: ${match.params.id}`}
+        </h1>
+        {seriesDetails 
         && (
         <h1>
           {`Bag type: ${seriesDetails.BagType}`}
@@ -89,7 +96,8 @@ function SeriesPage({ match, location }) {
           {`Status: ${seriesDetails.isDone ? 'Finished' : 'Not finished'}`}
         </h1>
       )}
-      {seriesForChart.length > 0 && <Chart options={chartOptions} series={seriesForChart} type="line" height="350" />}
+        {seriesForChart.length > 0 && <Chart className="chart-window" options={chartOptions} series={seriesForChart} type="line" height="350" />}
+      </div>
     </div>
   );
 }
@@ -112,6 +120,5 @@ SeriesPage.propTypes = {
     }).isRequired
   }).isRequired
 };
-
 
 export default withRouter(SeriesPage);
