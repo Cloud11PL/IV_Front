@@ -22,7 +22,7 @@ function DeviceContainer(props) {
   const RenderDevices = useRenderDevices(stateDevices); 
 
   return (
-    <div className="device--container">
+    <div className="device_container">
       {stateDevices !== [] && RenderDevices}
     </div>
   );
