@@ -7,7 +7,9 @@ export default function Home() {
   return (
     <div>
       <NavBar />
-      <Header />
+      <div className="scene-container">
+        <Header />
+      </div>
     </div>
   );
 }
