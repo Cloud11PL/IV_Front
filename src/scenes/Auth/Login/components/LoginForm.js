@@ -10,23 +10,27 @@ function LoginForm(props) {
 
   return (
     <form onSubmit={(e) => handleSubmit(e, authUser)}>
-      <label htmlFor="username">
-        Username: 
+      <div className="login__form--input">
+        <label htmlFor="username">
+          Username: 
+        </label>
         <input 
           id="username" 
           type="text"
           onChange={handleChange}
         />
-      </label>
-      <label htmlFor="password">
-        Password:
+      </div>
+      <div className="login__form--input">
+        <label htmlFor="password">
+          Password:
+        </label>        
         <input 
           id="password" 
           type="password"
           onChange={handleChange}
         />
-      </label>
-      <input type="submit" />
+      </div>
+      <input type="submit" className="login__submit" />
     </form>
   );
 }
