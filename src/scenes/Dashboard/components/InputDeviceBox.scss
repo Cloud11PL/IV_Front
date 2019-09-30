@@ -2,18 +2,150 @@
   &__container {
     display: flex;
   }
-  &__live-input-box {
-    height: 40%;
-    width: 60%;
-    background: $dark;
-    margin-bottom: 5%;
 
-    &__text {
-      color: white;
+  &__live {
+    &--device_name {
+      color: $dark;
+      font-size: 1.6rem;
+    }
 
-      &__input {
-        color: green;
+    &__top {
+      display: flex;
+      flex-direction: row-reverse;
+      flex-wrap: nowrap;
+      margin: 1rem;
+      justify-content: space-between;
+    }
+
+    &-input-box {
+      height: 40%;
+      width: 12vw;
+      background: $card-idle-background;
+      margin-bottom: 1vw;
+      margin-right: 1vw;
+      margin-top: 2vh;
+
+      &__text {
+        color: $dark;
+
+        &__input {
+          color: green;
+        }
       }
     }
   }
+}
+
+:root {
+  --size: 15vh;
+  --bord: 1vh;
+}
+
+.chart {
+  width: var(--size);
+  height: var(--size);
+  margin: 1em auto;
+  border-radius: 50%;
+  background-image: conic-gradient(lightseagreen var(--value), lightgrey var(--value));
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - var(--bord));
+  height: calc(100% - var(--bord));
+  background: $card-idle-background;
+  border-radius: inherit;
+}
+
+.chart__value {
+  position: relative;
+  z-index: 1;
+  font-size: 2em;
+}
+
+.x-60 {
+  --value: 60%;
+}
+
+.x-20 {
+  --value: 20%;
+}
+
+.button {
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+    // transition: width 1s;
+
+    &--clicked {
+      flex-direction: column;
+    }
+  }
+
+  &__series {
+    border: none;
+    outline: none;
+    background-color: $button-blue;
+    padding: 0.6rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-self: flex-start;
+    transition: width 1s;
+
+    &:hover {
+      transform: scale(1.05);
+      transition: 0.2s;
+
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:active {
+      outline: none;
+      background-color: $button-focused-blue;
+      transition: 0.2s;
+    }
+  }
+
+  &-menu {
+    padding: 0; 
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    height: 3rem;
+
+  &:hover {
+    background-color: $card-focused-background;
+    transition: 0.2s;
+  }
+
+  &:focus {
+    background-color: $card-focused-background;
+    outline: 0;
+    border: none;
+  }
+
+  &:active {
+    outline: 0;
+    border: none;
+  }
+}
+}
+
+.vertical-menu {
+  width: 3rem;
 }

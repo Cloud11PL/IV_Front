@@ -1,0 +1,42 @@
+.navbar {
+  height: 100%;
+  display: flex;
+  position: fixed;
+  background-color: $dark-blue;
+  flex-direction: column;
+
+  &__icon {
+    height: 4rem;
+    width: 4rem;
+  }
+
+  &__text {
+    margin-left: 1rem;
+    color: white;
+  }
+
+  &__item {
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-decoration: none;
+    margin-bottom: 1rem;
+
+    &--active{
+      background-color: $active-blue;
+    }
+
+  
+    &:hover{
+    background-color: $light-blue;
+    transition: 0.5s;
+      &:active {
+        background-color: $lighter-blue;
+        transition: 0.1s;
+      } 
+    }
+
+    
+  }
+}

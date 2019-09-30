@@ -1,0 +1,28 @@
+.series {
+  &__list {
+
+
+
+    &__item {
+      list-style-type: none;
+      padding: 0.5rem;
+      font-size: 1.2rem;
+      width: 100%;
+      background-color: $light-list-blue;
+      transition: 0.2s;
+
+      &:hover {
+        background-color: $hover-list-blue;
+      }
+
+      &:focus {
+        background-color: $focused-list-blue;
+      }
+
+      &__link{
+        text-decoration: none;
+        color: $dark;
+      }
+    }
+  }
+}
