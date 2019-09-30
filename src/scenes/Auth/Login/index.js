@@ -17,7 +17,12 @@ function Login(props) {
     return (
       <div>
         <NavBar />
-        <LoginForm />
+        <div className="login">
+          <div className="login__form">
+            <p className="login__form--title">Login</p>
+            <LoginForm /> 
+          </div>
+        </div>
       </div>
     );
 }
