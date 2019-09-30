@@ -1,5 +1,7 @@
 import {
- FETCH_DEVICES, SET_DEVICES
+ FETCH_DEVICES, 
+ SET_DEVICES,
+ UPDATE_SINGLE_DEVICE,
 } from './types';
 import apiAction from './apiAction';
 import store from '../store';
@@ -16,6 +18,13 @@ function setDevices(data) {
   };
 }
 
+function updateSignleDevice(data) {
+  return {
+    type: UPDATE_SINGLE_DEVICE,
+    payload: data,
+  };
+}
+
 export function fetchDevices() {
   const token = getAccessToken();
   return apiAction({
@@ -25,6 +34,19 @@ export function fetchDevices() {
     onSuccess: setDevices,
     onFailure: () => console.log('Cannot get devices'),
     label: FETCH_DEVICES
+  });
+}
+
+export function updateDeviceData(newDeviceData) {
+  const token = getAccessToken();
+  return apiAction({
+    url: 'http://localhost:1200/devices',
+    method: 'PUT',
+    data: newDeviceData,
+    token,
+    onSuccess: updateSignleDevice,
+    onFailure: () => console.log('Cannot update device'),
+    label: UPDATE_SINGLE_DEVICE
   });
 }
 
