@@ -1,4 +1,3 @@
-// Do akcji
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const VALIDATE_TOKEN = 'VALIDATE_TOKEN';
@@ -11,7 +10,8 @@ export const SET_DEVICES = 'SET_DEVICES';
 export const FETCH_DEVICES = 'FETCH_DEVICES';
 export const FETCH_DEVICE_SERIES = 'FETCH_DEVICE_SERIES';
 export const SET_DEVICE_SERIES = 'SET_DEVICE_SERIES';
-// Bezpośrednio do axiosa
+export const UPDATE_SINGLE_SERIES = 'UPDATE_SINGLE_SERIES';
+export const UPDATE_SINGLE_DEVICE = 'UPDATE_SINGLE_DEVICE';
 export const API = 'API';
 export const API_START = 'API_START';
 export const API_END = 'API_END';
