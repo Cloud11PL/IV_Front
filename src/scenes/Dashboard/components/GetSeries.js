@@ -21,15 +21,16 @@ function GetSeries(props) {
   }, [fetchSeries, id]);
 
   useEffect(() => {
-    if (series) {
+    if (series) { 
       setDeviceSeries(Object.entries(series).map((e) => (e[1])));
     }
   }, [series]);
 
   function renderSeries() {
     return deviceSeries.map((singleSeries) => (
-      <li key={singleSeries._id}>
+      <li key={singleSeries._id} className="series__list__item">
         <Link
+          className="series__list__item__link"
           to={{
           pathname: `/series/${mqttName}/${singleSeries.SeriesId}`,
           state: singleSeries 
@@ -44,7 +45,7 @@ function GetSeries(props) {
 
   return (
     <div>
-      {deviceSeries.length > 0 ? <ul>{renderSeries()}</ul> : 'No Series to show'}
+      {deviceSeries.length > 0 ? <ul className="series__list">{renderSeries()}</ul> : 'No Series to show'}
     </div> 
   );
 }
