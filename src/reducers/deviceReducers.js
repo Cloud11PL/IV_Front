@@ -1,5 +1,6 @@
 import {
   SET_DEVICES,
+  UPDATE_SINGLE_DEVICE,
  } from '../actions/types';
  
  function deviceReducers(state = [], action) {
@@ -8,6 +9,19 @@ import {
     case SET_DEVICES:
       console.log('SET_DEVICES', action.payload);
       return action.payload;
+    case UPDATE_SINGLE_DEVICE:
+      console.log('UPDATE_SINGLE_DEVICE', action.payload);
+      return state.map((device, index) => {
+        if (device._id === action.payload._id) {
+          return {
+            ...device,
+            Device_Name: action.payload.Device_Name,
+            Location: action.payload.Location,
+          };
+        }
+
+        return device;
+      });
     default:
       return state;
   }
