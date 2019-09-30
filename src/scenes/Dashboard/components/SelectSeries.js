@@ -19,8 +19,6 @@ function SelectSeries(props) {
   }, [fetchSeries, series]);
 
 
-  // ZASTOSOWAC SELECTOR DO STATE'A | TO BEDZIE KOOL
-
   useEffect(() => {
     setSeriesForDevice(series);
   }, [series]);
