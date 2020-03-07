@@ -3,8 +3,8 @@
     display: flex;
   }
 
-  &__live {
-    &--device_name {
+  &__block {
+    &__device-name {
       color: $dark;
       font-size: 1.6rem;
     }
@@ -17,7 +17,7 @@
       justify-content: space-between;
     }
 
-    &-input-box {
+    &__input-box {
       height: 40%;
       width: 12vw;
       background: $card-idle-background;
@@ -26,6 +26,8 @@
       margin-top: 2vh;
 
       &__text {
+        font-size: 1.1rem;
+        margin: 1rem;
         color: $dark;
 
         &__input {
@@ -36,17 +38,21 @@
   }
 }
 
-:root {
-  --size: 15vh;
-  --bord: 1vh;
+.not_active {
+  background: $card-not-active-background;
+  &::after {
+    background: $card-not-active-background !important;
+  }
 }
 
+$circle-size: 15vh;
+$circle-thickness: 1vh;
+
 .chart {
-  width: var(--size);
-  height: var(--size);
+  width: $circle-size;
+  height: $circle-size;
   margin: 1em auto;
   border-radius: 50%;
-  background-image: conic-gradient(lightseagreen var(--value), lightgrey var(--value));
   position: relative;
   display: flex;
   justify-content: center;
@@ -59,8 +65,8 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: calc(100% - var(--bord));
-  height: calc(100% - var(--bord));
+  width: calc(100% - #{$circle-thickness});
+  height: calc(100% - #{$circle-thickness});
   background: $card-idle-background;
   border-radius: inherit;
 }
@@ -71,20 +77,10 @@
   font-size: 2em;
 }
 
-.x-60 {
-  --value: 60%;
-}
-
-.x-20 {
-  --value: 20%;
-}
-
 .button {
-
   &__container {
     display: flex;
     flex-direction: row;
-    // transition: width 1s;
 
     &--clicked {
       flex-direction: column;

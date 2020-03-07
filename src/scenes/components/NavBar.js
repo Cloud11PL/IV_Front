@@ -4,13 +4,12 @@ import homeicon from './assets/home-icon.png';
 import loginicon from './assets/logout-icon.png';
 import logouticon from './assets/logout-icon.png';
 import dashboardicon from './assets/dashboard-icon.png';
+import historyicon from './assets/history-icon.png';
 
 import useLoggedInStatus from './useLoggedInStatus';
 
 
 export default function NavBar() {
-  useEffect(() => {
-  });
   const isLoggedIn = useLoggedInStatus();
   return (
     <aside className="navbar">
@@ -30,6 +29,13 @@ export default function NavBar() {
             <NavLink to="/dashboard" className="navbar__item" activeClassName="navbar__item--active">
               <img src={dashboardicon} alt="dashboard-icon" className="navbar__icon" />
               <p className="navbar__text">Dashboard</p>
+            </NavLink>
+          )}
+      {isLoggedIn 
+          && (
+            <NavLink to="/history" className="navbar__item" activeClassName="navbar__item--active">
+              <img src={historyicon} alt="history-icon" className="navbar__icon" />
+              <p className="navbar__text">Patient history</p>
             </NavLink>
           )}
       {isLoggedIn 

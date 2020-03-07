@@ -17,3 +17,7 @@ export const API_START = 'API_START';
 export const API_END = 'API_END';
 export const ACCESS_DENIED = 'ACCESS_DENIED';
 export const API_ERROR = 'API_ERROR';
+export const FETCH_PATIENTS = 'FETCH_PATIENTS';
+export const SET_PATIENTS = 'SET_PATIENTS';
+export const SET_BAG_TYPES = 'SET_BAG_TYPES'; 
+export const FETCH_BAG_TYPES = 'FETCH_BAG_TYPES';

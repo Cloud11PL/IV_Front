@@ -9,16 +9,13 @@ export default function Dashboard() {
   });
 
     return (
-      // <>
       <div className="dashboard__container">
         <NavBar />
         <div className="scene-container">
 
-          <h1>Woo hoo youre here nice</h1>
+          <h1>Device dashboard</h1>
           <DeviceContainer />
         </div>
       </div>
-
-      // </>
     );
 }

@@ -2,3 +2,26 @@
 //   margin-left: 15rem;
 //   height: 100%;
 // }
+.scene-container_device-info {
+  display: flex;
+  align-items: center;
+
+  p {
+    margin-left: 0.6rem;
+    font-size: 1.6rem;
+  }
+
+  button {
+    margin-left: 1rem;
+    padding: 0.6rem;
+    outline: none;
+    background-color: $button-blue;
+    border: none;
+    color: white;
+    transition: 0.2s;
+
+    &:hover {
+      background-color: $button-focused-blue;
+    }
+  }
+}

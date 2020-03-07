@@ -1,0 +1,92 @@
+.history {
+  &__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 80vw;
+    min-height: 60vh;
+  }
+
+  &__details {
+    width: 49vw;
+    padding: 2rem;
+    background-color: $history-details-background;
+    border: black;
+    border-width: thin;
+    border-style: solid;
+
+    hr {
+      border-top-color: black;
+
+      &.small {
+        width: 10vw;
+      }
+    }
+
+    table {
+      width: 100%;
+    }
+
+    td {
+      color: black;
+      padding: 1rem 1rem 1rem 0;
+      font-size: 1.4rem;
+      min-width: 8vw;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: black;
+      font-weight: 400;
+    }
+
+    &--name {
+      font-size: 3rem !important;
+    }
+
+    &--device {
+      display: flex;
+
+      h1 {
+        margin-right: 2rem;
+      }
+    }
+
+    // &__heading {
+    //   font-size: 2rem;
+    //   color: black;
+    //   font-weight: 400;
+
+    //   &name {
+    //     font-size: 3rem;
+    //   }
+    // }
+  }
+
+  &__patients {
+    border: black;
+    background-color: white;
+    border-width: thin;
+    border-style: solid;
+    display: flex;
+    width: 30vw;
+    height: 60vh;
+    flex-direction: column;
+    &--patient {
+      padding: 1rem;
+      background-color: white;
+      border-width: thin;
+      transition: 0.2s;
+      text-align: left;
+      font-size: 1.4rem;
+      &:hover {
+        background-color: $lighter-blue;
+      }
+    }
+  }
+}
+
+.btn-active {
+  background-color: $lighter-blue;
+  border-width: thin;
+}

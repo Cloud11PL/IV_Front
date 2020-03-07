@@ -12,6 +12,8 @@ export default function InputDeviceBox(props) {
   const [deviceData, setDeviceData] = useState({});
   const [isClicked, setClicked] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [isDeviceActive, setDeviceActiveness] = useState(false);
+  const [percentage, setPercentage] = useState(0);
 
   const dispatch = useDispatch();
   const modalTitle = 'Edit device data';
@@ -21,6 +23,11 @@ export default function InputDeviceBox(props) {
       setShowModal(false);
     }
   });
+
+  function deviceStatusChanged(status) {
+    console.log('STATUS recieved by parent =>', status);
+    setDeviceActiveness(status);
+  }
 
   function handleChange(e) {
     e.persist();
@@ -48,28 +55,59 @@ export default function InputDeviceBox(props) {
     console.log(deviceData);
   }
 
+  const percentageStyle = (value) => {
+    let color;
+    if (value > 80) {
+      color = 'lightseagreen';
+    } else if (value > 50 && value < 80) {
+      color = 'MediumAquaMarine';
+    } else if (value < 50 && value > 20) {
+      color = 'LightSalmon';
+    } else {
+      color = 'LightCoral';
+    }
+    return { 
+      backgroundImage: `conic-gradient(${color} ${value}%, lightgrey ${value}%)`
+    };
+  };
+
+  const deviceChart = () => (
+    <div className={isDeviceActive ? 'chart' : 'chart not_active'} style={percentageStyle(percentage)}>  
+      <p className="chart__value">
+        <DeviceWebsocket 
+          mqttName={deviceData.mqttName} 
+          statusChange={deviceStatusChanged} 
+          deviceStatus={isDeviceActive}
+          setPercentage={setPercentage} 
+        />
+      </p>
+    </div>
+  );
+
   return (
-    <div className="device__live-input-box">
-      <div className="device__live__top">
+    <div className={isDeviceActive ? 'device__block__input-box' : 'device__block__input-box not_active'}>
+      <div className="device__block__top">
         <button type="button" onClick={handleModalClick} className="button-menu">
           <img src="assets/vertical-menu-icon.png" className="vertical-menu" alt="menu button" />
         </button>      
-        <p className="device__live--device_name">
+        <p className="device__block__device-name">
           {`${deviceData.Device_Name}`} 
         </p>
       </div>
-      <div className="chart x-60">
-        <p className="chart__value">
-          
-          <DeviceWebsocket mqttName={deviceData.mqttName} />
-        
+      {deviceChart()}
+      <div className="device__block__input-box__text">
+        {isDeviceActive && <p><b>Device is active</b></p>}
+        {!isDeviceActive && <p><b>Device is not active</b></p>}
+        <p>
+          ID:
+          {` ${deviceData.mqttName}`}
         </p>
-      </div> 
-      <div className="device__live-input-box__text">
-        {`ID: ${deviceData.mqttName}`}
-        <br />
-        <br />
-        {`Location: ${deviceData.Location}`}
+        <p>
+        Location:
+          {` ${deviceData.Location}`}
+        </p>
+      </div>
+      <div className="device__block__input-box--button">
         <Modal modalTitle={modalTitle} open={showModal} onClose={handleModalClick} className="modal">
           <div className="modal__content--input">
             <label>Device name: </label>
@@ -96,7 +134,6 @@ export default function InputDeviceBox(props) {
             onClick={handleClick} 
             type="button"
             className="button__series"
-            
           >
             {isClicked ? 'Hide series list' : 'Show series list'}
           </button>

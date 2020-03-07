@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import Chart from 'react-apexcharts';
 import propTypes from 'prop-types';
-import API from '../../../_config/axios';
-import chartOptions from './chartOptions';
-
 import NavBar from '../../components/NavBar';
 import Modal from '../../components/Modal';
+import ChartContainer from './ChartContainer';
+
 
 import { updateSingleSeries } from '../../../actions/seriesActions';
 
+import useBagTypes from '../../HistoryPage/useBagTypes';
+import { fetchBagTypes } from '../../../actions/bagTypeActions';
+
 function SeriesPage({ match, location }) {
-  const [seriesForChart, setSeriesForChart] = useState([]);
   const [seriesDetails, setSeriesDetails] = useState({});
   const [showModal, setShowModal] = useState(false);
-
+  const seriesId = match.params.id;
+  const mqttName = match.params.device;
+  
   function handleChange(e) {
     e.persist();
     setSeriesDetails((data) => ({ ...data, [e.target.id]: e.target.value }));
@@ -34,69 +36,72 @@ function SeriesPage({ match, location }) {
     console.log(seriesDetails);
   }
 
-  const seriesId = match.params.id;
-  const mqttName = match.params.device;
+  const bagTypes = useBagTypes();
+
+  useEffect(() => {
+    if (!bagTypes.length > 0) {
+      dispatch(fetchBagTypes());
+    }
+  });
 
   useEffect(() => {
     setSeriesDetails(location.state);
   }, [location.state]);
 
-  function convertAPIData(series) {
-    const tempSeries = [];
-    series.map((singleInput) => 
-      tempSeries.push({
-        x: new Date(singleInput.Time).getTime(),
-        y: singleInput.payload,
-      }));
-    setSeriesForChart([{ data: tempSeries }]);
-  }
-
-  useEffect(() => {
-    async function fetchSeriesData() {
-      await API.get('http://localhost:1200/series', {
-        params: {
-          mqttName,
-          seriesId,
-        }
-      }).then((nodeData) => {
-        convertAPIData(nodeData.data);
-      });
+  function getBagType(objectId) {
+    if (objectId === undefined) {
+      return 'No bags set.';
     }
-    fetchSeriesData();
-  }, [mqttName, seriesId]);
-
+    const bags = bagTypes.filter((bag) => bag._id === objectId);
+    console.log(bags[0]);
+    return `${bags[0].type} ${bags[0].volume}ML ${bags[0].dosage}%`;
+  }
 
   return (
     <div>
       <NavBar />
       <div className="scene-container">
-      We are now looking at a nice page for a device:
-        <br />
-        <h1>
-          {`Device name: ${match.params.device}`}
-        </h1>
-        <h1> 
-          {`Series ID: ${match.params.id}`}
-        </h1>
+        <div className="scene-container_device-info">
+          <h1>
+            Device name: 
+          </h1>
+          <p>{match.params.device}</p>
+        </div>
+        <div className="scene-container_device-info">
+          <h1>
+            Series ID: 
+          </h1>
+          <p>{match.params.id}</p>
+        </div>
+
         {seriesDetails 
         && (
-        <h1>
-          {`Bag type: ${seriesDetails.BagType}`}
-          <button type="button" onClick={handleClick}>Edit</button>
-          <Modal open={showModal} onClose={handleClick} className="modal">
-            <label>Bag type:</label>
-            <input 
-              placeholder={seriesDetails.BagType}
-              id="BagType"
-              onChange={handleChange}
-            />
-            <button type="submit" onClick={handleSubmit}>Submit</button>
-          </Modal>
-          <br />
-          {`Status: ${seriesDetails.isDone ? 'Finished' : 'Not finished'}`}
-        </h1>
+          <>
+            <div className="scene-container_device-info">
+              <h1>
+                Bag type: 
+              </h1>
+              <p>{getBagType(seriesDetails.bagType)}</p>
+              <button type="button" onClick={handleClick}>Edit</button>
+            </div>
+            <Modal open={showModal} onClose={handleClick} className="modal">
+              <label>Bag type:</label>
+              <input 
+                placeholder={seriesDetails.bagType}
+                id="bagType"
+                onChange={handleChange}
+              />
+              <button type="submit" onClick={handleSubmit}>Submit</button>
+            </Modal>
+            <div className="scene-container_device-info">
+              <h1>
+              Series status: 
+              </h1>
+              <p>{seriesDetails.isDone ? 'Finished' : 'Not finished'}</p>
+            </div>
+          </>
       )}
-        {seriesForChart.length > 0 && <Chart className="chart-window" options={chartOptions} series={seriesForChart} type="line" height="350" />}
+        {<ChartContainer mqttName={mqttName} seriesId={seriesId} />}
       </div>
     </div>
   );
@@ -111,7 +116,7 @@ SeriesPage.propTypes = {
   }).isRequired,
   location: propTypes.shape({
     state: propTypes.shape({
-      BagType: propTypes.string.isRequired,
+      bagType: propTypes.string.isRequired,
       Device_Id: propTypes.string.isRequired,
       _id: propTypes.string.isRequired,
       time: propTypes.string.isRequired,

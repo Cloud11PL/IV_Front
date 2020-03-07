@@ -12,6 +12,7 @@ import Home from './scenes/Home/Home';
 import Login from './scenes/Auth/Login';
 import Dashboard from './scenes/Dashboard';
 import SeriesPage from './scenes/Dashboard/SeriesPage';
+import HistoryPage from './scenes/HistoryPage';
 
 import LogOut from './scenes/Auth/Login/components/LogOut';
 
@@ -27,8 +28,9 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
-        <PrivateRoute path="/dashboard" component={Dashboard} />
+        <PrivateRoute exact path="/dashboard" component={Dashboard} />
         <PrivateRoute path="/logout" component={LogOut} />
+        <PrivateRoute exact path="/history" component={HistoryPage} />
         <PrivateRoute path="/series/:device/:id" component={SeriesPage} />
       </Switch>
     </Router>
